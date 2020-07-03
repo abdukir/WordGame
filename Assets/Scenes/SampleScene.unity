@@ -1776,8 +1776,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
-  desiredValue: 
+  desiredValue: D
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &567710717
 CanvasRenderer:
@@ -1866,8 +1867,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
-  desiredValue: 
+  desiredValue: G
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &575787323
 CanvasRenderer:
@@ -2205,8 +2207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
-  desiredValue: 
+  desiredValue: C
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &686174035
 CanvasRenderer:
@@ -2743,6 +2746,7 @@ MonoBehaviour:
   isOccupied: 0
   desiredValue: 
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &782621430
 CanvasRenderer:
@@ -2933,8 +2937,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
-  desiredValue: 
+  desiredValue: A
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!1 &877322999
 GameObject:
@@ -3372,6 +3377,7 @@ MonoBehaviour:
   isOccupied: 0
   desiredValue: 
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &982290304
 CanvasRenderer:
@@ -4601,6 +4607,7 @@ MonoBehaviour:
   isOccupied: 0
   desiredValue: 
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &1225862597
 CanvasRenderer:
@@ -4779,8 +4786,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
-  desiredValue: 
+  desiredValue: H
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &1330316543
 CanvasRenderer:
@@ -4963,8 +4971,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
-  desiredValue: 
+  desiredValue: F
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &1360057012
 CanvasRenderer:
@@ -6335,6 +6344,7 @@ MonoBehaviour:
   isOccupied: 0
   desiredValue: 
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &1719271155
 CanvasRenderer:
@@ -6578,8 +6588,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
-  desiredValue: 
+  desiredValue: B
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &1765603240
 CanvasRenderer:
@@ -6781,8 +6792,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
-  desiredValue: 
+  desiredValue: E
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &1805698147
 CanvasRenderer:
@@ -6873,6 +6885,7 @@ MonoBehaviour:
   isOccupied: 0
   desiredValue: 
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &1835649128
 CanvasRenderer:
@@ -7008,6 +7021,7 @@ MonoBehaviour:
   isOccupied: 0
   desiredValue: 
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &1860335823
 CanvasRenderer:
@@ -7688,6 +7702,7 @@ MonoBehaviour:
   isOccupied: 0
   desiredValue: 
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &2093629340
 CanvasRenderer:
@@ -7933,6 +7948,7 @@ MonoBehaviour:
   isOccupied: 0
   desiredValue: 
   currentValue: 
+  isCorrect: 0
   curLetterObject: {fileID: 0}
 --- !u!222 &2141344326
 CanvasRenderer:

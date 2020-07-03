@@ -81,7 +81,7 @@ public class LetterHolder : MonoBehaviour, IDropHandler
         obj.transform.SetParent(transform, false);
         obj.GetComponent<RectTransform>().anchoredPosition = obj.GetComponent<Letter>().startPos;
         letterManager.UpdateHolders();
-        
+        // Check if answer is correct
         if (currentValue == desiredValue)
         {
             isCorrect = true;

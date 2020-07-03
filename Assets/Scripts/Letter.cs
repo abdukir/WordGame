@@ -129,6 +129,7 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         if (isPlaced)
         {
             curHolder.isOccupied = false;
+            curHolder.isCorrect = false;
             SendToOriginalPos();
             oldHolder = null;
             curHolder = null;

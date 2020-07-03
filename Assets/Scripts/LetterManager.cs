@@ -1,6 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
+[System.Serializable]
+public struct LetterInfo
+{
+    public bool isOccupied;
+    public bool isCorrect;
+
+    public LetterInfo(bool isOccupied, bool isCorrect)
+    {
+        this.isOccupied = isOccupied;
+        this.isCorrect = isCorrect;
+    }
+}
 
 public class LetterManager : MonoBehaviour
 {
@@ -17,7 +31,7 @@ public class LetterManager : MonoBehaviour
     }
 
     public LetterHolder[] letterHolders;                                                        // This is array of the all letter holders in the scene.
-    public Dictionary<LetterHolder,bool> currentLetterHolders;                                  // This is the list of available letterholder that active in scene.
+    public Dictionary<LetterHolder,LetterInfo> currentLetterHolders;                            // This is the list of available letterholder that active in scene.
     public Queue<LetterHolder> usableHolders;                                                   // This is the list of unocupied letterholders.
 
     private void Start()
@@ -32,18 +46,23 @@ public class LetterManager : MonoBehaviour
     /// </summary>
     public void UpdateHolders()
     {
-        currentLetterHolders = new Dictionary<LetterHolder, bool>();
+        currentLetterHolders = new Dictionary<LetterHolder, LetterInfo>();
         usableHolders = new Queue<LetterHolder>();
         foreach (LetterHolder holder in letterHolders)
         {
             if (holder.gameObject.activeInHierarchy)
             {
-                currentLetterHolders.Add(holder, holder.isOccupied);
+                currentLetterHolders.Add(holder, new LetterInfo(holder.isOccupied, holder.isCorrect) );
                 if (!holder.isOccupied)
                 {
                     usableHolders.Enqueue(holder);
                 }
             }
+        }
+
+        if (!currentLetterHolders.ContainsValue(new LetterInfo(false,false)))
+        {
+            Debug.Log("All Correct");
         }
     }
 
