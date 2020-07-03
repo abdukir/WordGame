@@ -30,7 +30,13 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     {
         startPos = rectTransform.anchoredPosition;                                                  // Store our starting position for later use.
         parentTransform = transform.parent;                                                         // Store our parent for later use.
-        letterText.text = curLetter;                                                                // Update our letter.
+        //letterText.text = curLetter;                                                                // Update our letter.
+    }
+
+    public void SetLetter(string _letter)
+    {
+        curLetter = _letter;
+        letterText.text = curLetter;
     }
 
     /// <summary>

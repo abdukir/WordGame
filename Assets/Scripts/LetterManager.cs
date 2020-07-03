@@ -24,15 +24,22 @@ public class LetterManager : MonoBehaviour
     /// something with them. It'll also check if the users
     /// input is correct or not.
     /// </summary>
+
+    private const string LETTERS = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZXQW";
+    
     public static LetterManager Instance { set; get; }
     private void Awake()
     {
         Instance = this;
     }
 
+    public GameObject testTik;
+
     public LetterHolder[] letterHolders;                                                        // This is array of the all letter holders in the scene.
     public Dictionary<LetterHolder,LetterInfo> currentLetterHolders;                            // This is the list of available letterholder that active in scene.
     public Queue<LetterHolder> usableHolders;                                                   // This is the list of unocupied letterholders.
+
+    public Letter[] letters;                                                                    // Reference to our letters.
 
     private void Start()
     {
@@ -59,11 +66,15 @@ public class LetterManager : MonoBehaviour
                 }
             }
         }
-
+        // Check every holders correctivity value, if none of them are false, answer is correct!
         if (!currentLetterHolders.ContainsValue(new LetterInfo(false,false)))
         {
+            // Correct answer!!
             Debug.Log("All Correct");
+            testTik.SetActive(true);
         }
+
+
     }
 
     /// <summary>
@@ -88,8 +99,51 @@ public class LetterManager : MonoBehaviour
         }
     }
 
-    public void CheckAnswer()
+    [ContextMenu("test question")]
+    public void Test()
     {
+        SetQuestion("DENEME");
+    }
+
+    public void SetQuestion(string answer)
+    {
+        // First enable enough letter holders to hold our answer
+        for (int i = 0; i < answer.Length; i++)
+        {
+            letterHolders[i].gameObject.SetActive(true);
+            UpdateHolders();
+            letterHolders[i].desiredValue = answer[i].ToString();
+            letters[i].SetLetter(answer[i].ToString());
+        }
+
+        // Set up enough letters and randomize rest.
+        for (int i = answer.Length; i < letters.Length; i++)
+        {
+            int rand = Random.Range(0, LETTERS.Length);
+            letters[i].SetLetter(LETTERS[rand].ToString());
+        }
+        MixLetters();
+    }
+
+    [ContextMenu("Test Mix")]
+    public void TestMix()
+    {
+        MixLetters();
+    }
+
+    public void MixLetters()
+    {
+        List<Vector2> letterPositions = new List<Vector2>();
+        for (int i = 0; i < letters.Length; i++)
+        {
+            letterPositions.Add(letters[i].transform.parent.GetComponent<RectTransform>().anchoredPosition);
+        }
+        for (int i = 0; i < letters.Length; i++)
+        {
+            int rand = Random.Range(0, letterPositions.Count);
+            letters[i].transform.parent.GetComponent<RectTransform>().anchoredPosition = letterPositions[rand];
+            letterPositions.RemoveAt(rand);
+        }
 
     }
 }
