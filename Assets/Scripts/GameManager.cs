@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { set; get; }
     public TextMeshProUGUI hintText;
     public TextMeshProUGUI questionText;
-    public Sprite questionImage;
+    public Image questionImage;
 
     private LetterManager letterManager => LetterManager.Instance;
 

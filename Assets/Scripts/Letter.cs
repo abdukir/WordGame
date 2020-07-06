@@ -144,7 +144,6 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
         else
         {
             // Place it on the first empty slot
-            Debug.Log("auto place");
             letterManager.AddLetter(this);
         }
     }

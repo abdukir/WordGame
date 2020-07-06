@@ -80,7 +80,6 @@ public class LetterHolder : MonoBehaviour, IDropHandler
         this.isOccupied = true;
         obj.transform.SetParent(transform, false);
         obj.GetComponent<RectTransform>().anchoredPosition = obj.GetComponent<Letter>().startPos;
-        letterManager.UpdateHolders();
         // Check if answer is correct
         if (currentValue == desiredValue)
         {
@@ -90,6 +89,8 @@ public class LetterHolder : MonoBehaviour, IDropHandler
         {
             isCorrect = false;
         }
+
+        letterManager.UpdateHolders();
     }
 
     /// <summary>
@@ -105,6 +106,14 @@ public class LetterHolder : MonoBehaviour, IDropHandler
         curLetterObject.GetComponent<Letter>().isPlaced = false;
         curLetterObject = null;
         letterManager.UpdateHolders();
+    }
+
+    public void ResetHolder()
+    {
+        isOccupied = false;
+        currentValue = "";
+        isCorrect = false;
+        curLetterObject = null;
     }
 	#endregion
 }

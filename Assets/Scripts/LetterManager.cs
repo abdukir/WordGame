@@ -8,6 +8,16 @@ public struct LetterInfo
 {
     public bool isOccupied;
     public bool isCorrect;
+    
+    public bool Check()
+    {
+        bool toReturn = false;
+        if (isCorrect && isOccupied)
+        {
+            toReturn = true;
+        }
+        return toReturn;
+    }
 
     public LetterInfo(bool isOccupied, bool isCorrect)
     {
@@ -26,17 +36,16 @@ public class LetterManager : MonoBehaviour
     /// </summary>
 
     private const string LETTERS = "ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZXQW";
-    
+    private DataManager dataManager => DataManager.Instance;
+    private GameManager gM => GameManager.Instance;
     public static LetterManager Instance { set; get; }
     private void Awake()
     {
         Instance = this;
     }
 
-    public GameObject testTik;
-
     public LetterHolder[] letterHolders;                                                        // This is array of the all letter holders in the scene.
-    public Dictionary<LetterHolder,LetterInfo> currentLetterHolders;                            // This is the list of available letterholder that active in scene.
+    public Dictionary<LetterHolder,bool> currentLetterHolders;                            // This is the list of available letterholder that active in scene.
     public Queue<LetterHolder> usableHolders;                                                   // This is the list of unocupied letterholders.
 
     public Letter[] letters;                                                                    // Reference to our letters.
@@ -53,13 +62,13 @@ public class LetterManager : MonoBehaviour
     /// </summary>
     public void UpdateHolders()
     {
-        currentLetterHolders = new Dictionary<LetterHolder, LetterInfo>();
+        currentLetterHolders = new Dictionary<LetterHolder, bool>();
         usableHolders = new Queue<LetterHolder>();
         foreach (LetterHolder holder in letterHolders)
         {
             if (holder.gameObject.activeInHierarchy)
             {
-                currentLetterHolders.Add(holder, new LetterInfo(holder.isOccupied, holder.isCorrect) );
+                currentLetterHolders.Add(holder, holder.isCorrect);
                 if (!holder.isOccupied)
                 {
                     usableHolders.Enqueue(holder);
@@ -67,12 +76,13 @@ public class LetterManager : MonoBehaviour
             }
         }
         // Check every holders correctivity value, if none of them are false, answer is correct!
-        if (!currentLetterHolders.ContainsValue(new LetterInfo(false,false)))
+        if (!currentLetterHolders.ContainsValue(false))
         {
-            // Correct answer!!
-            Debug.Log("All Correct");
-            testTik.SetActive(true);
+            // Correct Answer
+            Debug.LogWarning("All Correct!");
+            dataManager.NextQuestion();
         }
+
 
 
     }
@@ -88,10 +98,10 @@ public class LetterManager : MonoBehaviour
         if (usableHolders.Count > 0)
         {
             LetterHolder desiredHolder = usableHolders.Dequeue();
-            desiredHolder.SetCurrentLetter(letter.gameObject);
             desiredHolder.curLetterObject = letter.gameObject;
             desiredHolder.isOccupied = true;
             letter.isPlaced = true;
+            desiredHolder.SetCurrentLetter(letter.gameObject);
         }
         else
         {
@@ -99,37 +109,40 @@ public class LetterManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("test question")]
-    public void Test()
+    public void ResetScreen()
     {
-        SetQuestion("DENEME");
+        foreach (Letter letter in letters)
+        {
+            letter.SendToOriginalPos();
+        }
+        foreach (LetterHolder holder in letterHolders)
+        {
+            holder.ResetHolder();
+            holder.gameObject.SetActive(false);
+        }
     }
 
-    public void SetQuestion(string answer)
+    public void SetQuestion(Question question)
     {
         // First enable enough letter holders to hold our answer
-        for (int i = 0; i < answer.Length; i++)
+        for (int i = 0; i < question.answer.Length; i++)
         {
             letterHolders[i].gameObject.SetActive(true);
-            UpdateHolders();
-            letterHolders[i].desiredValue = answer[i].ToString();
-            letters[i].SetLetter(answer[i].ToString());
+            letterHolders[i].desiredValue = question.answer[i].ToString();
+            letters[i].SetLetter(question.answer[i].ToString());
         }
+        UpdateHolders();
 
         // Set up enough letters and randomize rest.
-        for (int i = answer.Length; i < letters.Length; i++)
+        for (int i = question.answer.Length; i < letters.Length; i++)
         {
             int rand = Random.Range(0, LETTERS.Length);
             letters[i].SetLetter(LETTERS[rand].ToString());
         }
+        gM.questionImage.sprite = question.sprite;
         MixLetters();
     }
 
-    [ContextMenu("Test Mix")]
-    public void TestMix()
-    {
-        MixLetters();
-    }
 
     public void MixLetters()
     {
