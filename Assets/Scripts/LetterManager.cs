@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using TMPro;
 
 [System.Serializable]
 public struct LetterInfo
@@ -45,10 +45,12 @@ public class LetterManager : MonoBehaviour
     }
 
     public LetterHolder[] letterHolders;                                                        // This is array of the all letter holders in the scene.
-    public Dictionary<LetterHolder,bool> currentLetterHolders;                            // This is the list of available letterholder that active in scene.
+    public Dictionary<LetterHolder,bool> currentLetterHolders;                                  // This is the list of available letterholder that active in scene.
     public Queue<LetterHolder> usableHolders;                                                   // This is the list of unocupied letterholders.
 
     public Letter[] letters;                                                                    // Reference to our letters.
+
+    public TextMeshProUGUI questionText;
 
     private void Start()
     {
@@ -82,9 +84,6 @@ public class LetterManager : MonoBehaviour
             Debug.LogWarning("All Correct!");
             dataManager.NextQuestion();
         }
-
-
-
     }
 
     /// <summary>
@@ -141,6 +140,7 @@ public class LetterManager : MonoBehaviour
         }
         gM.questionImage.sprite = question.sprite;
         MixLetters();
+        questionText.text = question.question;
     }
 
 
