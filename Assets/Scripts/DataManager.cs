@@ -10,6 +10,12 @@ public class Question
     public string answer;
     public Sprite sprite;
 }
+[System.Serializable]
+public class Category
+{
+    public string categoryName;
+    public Question[] questions;
+}
 
 public class DataManager : MonoBehaviour
 {
@@ -19,22 +25,26 @@ public class DataManager : MonoBehaviour
         Instance = this;
     }
     private LetterManager letterManager => LetterManager.Instance;
-    public Question[] questions;
+
+    public Category[] categories;
+
+    public int currentCategoryID;
     public int currentQuestion;
 
     public TextMeshProUGUI levelText;
 
-    private void Start()
+    public void FirstQuestion(int ID)
     {
-        letterManager.SetQuestion(questions[currentQuestion]);
-        levelText.text = "Level: " + (currentQuestion + 1);
+        letterManager.SetQuestion(categories[ID].questions[currentQuestion]);
+        currentCategoryID = ID;
+        levelText.text = "Level: " + (ID + 1);
     }
 
     public void NextQuestion()
     {
         letterManager.ResetScreen();
         currentQuestion++;
-        letterManager.SetQuestion(questions[currentQuestion]);
+        letterManager.SetQuestion(categories[currentCategoryID].questions[currentQuestion]);
         levelText.text = "Level: " + (currentQuestion + 1);
     }
 }
