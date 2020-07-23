@@ -159,4 +159,18 @@ public class LetterManager : MonoBehaviour
         }
 
     }
+
+    public void GiveHint()
+    {
+        List<Letter> nonPlacedLetters = new List<Letter>();
+        for (int i = 0; i < letters.Length; i++)
+        {
+            if (!letters[i].isPlaced)
+            {
+                nonPlacedLetters.Add(letters[i]);
+            }
+        }
+
+
+    }
 }
