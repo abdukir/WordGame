@@ -54,6 +54,8 @@ public class LetterManager : MonoBehaviour
 
     public TextMeshProUGUI questionText;
     public Image questionImage;
+
+    public string currentAnswer;
     private void Start()
     {
         UpdateHolders();
@@ -85,7 +87,7 @@ public class LetterManager : MonoBehaviour
             // Correct Answer
             Debug.LogWarning("All Correct!");
             CoinManager.Instance.AddCoin(10);
-            dataManager.NextQuestion();
+            WinScreen.Instance.SetWinScreen(questionImage.sprite, currentAnswer, "10");
         }
     }
 
@@ -126,6 +128,7 @@ public class LetterManager : MonoBehaviour
 
     public void SetQuestion(Question question)
     {
+        currentAnswer = question.answer;
         // First enable enough letter holders to hold our answer
         for (int i = 0; i < question.answer.Length; i++)
         {
