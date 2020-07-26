@@ -13,24 +13,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { set; get; }
 
     public bool isMouseDragging;
+    
+    public bool isDisabled;
     private void Awake()
     {
         Instance = this;
-    }
-
-    private void Start()
-    {
-        Load();
-    }
-
-    public void Save()
-    {
-
-    }
-
-    public void Load()
-    {
-
     }
 
 }

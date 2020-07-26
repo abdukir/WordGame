@@ -75,15 +75,18 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     /// </summary>
     public void OnBeginDrag(PointerEventData eventData)
     {
-        transform.SetParent(canvas.transform);
-        rectTransform.position = eventData.position;
-        GetComponent<Image>().raycastTarget = false;
-        gM.isMouseDragging = true;
-        if (curHolder != null)
+        if (!gM.isDisabled)
         {
-            curHolder.isOccupied = false;
+            transform.SetParent(canvas.transform);
+            rectTransform.position = eventData.position;
+            GetComponent<Image>().raycastTarget = false;
+            gM.isMouseDragging = true;
+            if (curHolder != null)
+            {
+                curHolder.isOccupied = false;
+            }
+            curHolder = null;
         }
-        curHolder = null;
     }
 
     /// <summary>
@@ -92,27 +95,35 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     /// </summary>
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-        gM.isMouseDragging = true;
+        if (!gM.isDisabled)
+        {
+            rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+            gM.isMouseDragging = true;
+        }
     }
 
     // Re-enable the raycast target to true to make it redraggable again.
     public void OnEndDrag(PointerEventData eventData)
     {
-        GetComponent<Image>().raycastTarget = true;
-        if (curHolder == null)
+        if (!gM.isDisabled)
         {
-            SendToOriginalPos();
+            GetComponent<Image>().raycastTarget = true;
+            if (curHolder == null)
+            {
+                SendToOriginalPos();
+            }
         }
-
     }
 
     // Scale it up when the mouse hovers over it.
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!gM.isMouseDragging)
+        if (!gM.isDisabled)
         {
-            transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+            if (!gM.isMouseDragging)
+            {
+                transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+            }
         }
     }
 
@@ -132,19 +143,22 @@ public class Letter : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
     /// <param name="eventData"></param>
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (isPlaced)
+        if (!gM.isDisabled)
         {
-            curHolder.isOccupied = false;
-            curHolder.isCorrect = false;
-            SendToOriginalPos();
-            oldHolder = null;
-            curHolder = null;
-            letterManager.UpdateHolders();
-        }
-        else
-        {
-            // Place it on the first empty slot
-            letterManager.AddLetter(this);
+            if (isPlaced)
+            {
+                curHolder.isOccupied = false;
+                curHolder.isCorrect = false;
+                SendToOriginalPos();
+                oldHolder = null;
+                curHolder = null;
+                letterManager.UpdateHolders();
+            }
+            else
+            {
+                // Place it on the first empty slot
+                letterManager.AddLetter(this);
+            }
         }
     }
 
