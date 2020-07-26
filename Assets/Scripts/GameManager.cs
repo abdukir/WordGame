@@ -11,16 +11,26 @@ public class GameManager : MonoBehaviour
     /// </summary>
     
     public static GameManager Instance { set; get; }
-    public TextMeshProUGUI hintText;
-    public TextMeshProUGUI questionText;
-    public Image questionImage;
-
-    private LetterManager letterManager => LetterManager.Instance;
 
     public bool isMouseDragging;
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        Load();
+    }
+
+    public void Save()
+    {
+
+    }
+
+    public void Load()
+    {
+
     }
 
 }

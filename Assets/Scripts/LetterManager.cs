@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
+using UnityEngine.UI;
 
 [System.Serializable]
 public struct LetterInfo
@@ -51,7 +53,7 @@ public class LetterManager : MonoBehaviour
     public Letter[] letters;                                                                    // Reference to our letters.
 
     public TextMeshProUGUI questionText;
-
+    public Image questionImage;
     private void Start()
     {
         UpdateHolders();
@@ -82,6 +84,7 @@ public class LetterManager : MonoBehaviour
         {
             // Correct Answer
             Debug.LogWarning("All Correct!");
+            CoinManager.Instance.AddCoin(10);
             dataManager.NextQuestion();
         }
     }
@@ -138,7 +141,7 @@ public class LetterManager : MonoBehaviour
             int rand = Random.Range(0, LETTERS.Length);
             letters[i].SetLetter(LETTERS[rand].ToString());
         }
-        gM.questionImage.sprite = question.sprite;
+        questionImage.sprite = question.sprite;
         MixLetters();
         questionText.text = question.question;
     }
@@ -160,8 +163,10 @@ public class LetterManager : MonoBehaviour
 
     }
 
+    [ContextMenu("test hint")]
     public void GiveHint()
     {
+        CoinManager.Instance.UseCoin(10);
         List<Letter> nonPlacedLetters = new List<Letter>();
         for (int i = 0; i < letters.Length; i++)
         {
@@ -170,7 +175,17 @@ public class LetterManager : MonoBehaviour
                 nonPlacedLetters.Add(letters[i]);
             }
         }
-
+        LetterHolder hintHolder = usableHolders.ToArray()[Random.Range(0, usableHolders.Count)];
+        for (int i = 0; i < nonPlacedLetters.Count; i++)
+        {
+            if (nonPlacedLetters[i].curLetter == hintHolder.desiredValue)
+            {
+                hintHolder.SetCurrentLetter(nonPlacedLetters[i].gameObject);
+                break;
+            }
+        }
+        
+        Debug.LogWarning("Hint!");
 
     }
 }

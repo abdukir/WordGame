@@ -1012,6 +1012,7 @@ MonoBehaviour:
   - {fileID: 3297525492793010512}
   - {fileID: 3297525490936385746}
   questionText: {fileID: 3297525492819580538}
+  questionImage: {fileID: 3297525492702652231}
 --- !u!1 &3297525491170187602
 GameObject:
   m_ObjectHideFlags: 0
@@ -2854,7 +2855,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3297525491561255097}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3297525491163031945}
+        m_MethodName: GiveHint
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3297525491583114699
 GameObject:
   m_ObjectHideFlags: 0
@@ -5915,7 +5927,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3297525492430264929}
-  - component: {fileID: 3297525492430264928}
   - component: {fileID: 3297525492430264931}
   m_Layer: 5
   m_Name: MainScreen
@@ -5950,22 +5961,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3297525492430264928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3297525492430264934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d6cc405582e28c4d91fff889a91cf24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hintText: {fileID: 0}
-  questionText: {fileID: 0}
-  questionImage: {fileID: 3297525492702652231}
-  isMouseDragging: 0
 --- !u!114 &3297525492430264931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7536,6 +7531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3297525492872382555}
   - component: {fileID: 3297525492872382549}
+  - component: {fileID: 6016043334153208810}
   - component: {fileID: 3297525492872382554}
   m_Layer: 5
   m_Name: CreditText
@@ -7571,6 +7567,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3297525492872382552}
   m_CullTransparentMesh: 0
+--- !u!114 &6016043334153208810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297525492872382552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aa3dc12efd31794c82a0a627c6492c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCoin: 0
 --- !u!114 &3297525492872382554
 MonoBehaviour:
   m_ObjectHideFlags: 0
